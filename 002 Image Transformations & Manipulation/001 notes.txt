@@ -1,0 +1,58 @@
+PHASE 2: IMAGE TRANSFORMATIONS & MANIPULATION
+================================================
+
+1. RESIZING & SCALING IMAGES
+   - cv2.resize(image, (width, height)) - Resize to specific dimensions
+   - cv2.resize(image, None, fx=scale, fy=scale) - Scale by factor
+   - Interpolation methods:
+     * cv2.INTER_LINEAR - Default, good for enlarging
+     * cv2.INTER_AREA - Best for shrinking
+     * cv2.INTER_CUBIC - Slower but better quality
+   - Maintains aspect ratio: calculate new dimensions proportionally
+
+2. CROPPING USING SLICING
+   - Syntax: cropped = image[y1:y2, x1:x2]
+   - Uses NumPy array slicing
+   - [row_start:row_end, col_start:col_end]
+   - Example: image[100:300, 50:250] - crops from (50,100) to (250,300)
+   - No special function needed - direct array indexing
+
+3. ROTATING AND FLIPPING IMAGES
+   Rotation:
+   - cv2.getRotationMatrix2D(center, angle, scale) - Create rotation matrix
+   - cv2.warpAffine(image, matrix, (width, height)) - Apply rotation
+   - center = (width//2, height//2) for center rotation
+   - Positive angle = counter-clockwise
+   
+   Flipping:
+   - cv2.flip(image, 0) - Flip vertically (around x-axis)
+   - cv2.flip(image, 1) - Flip horizontally (around y-axis)
+   - cv2.flip(image, -1) - Flip both directions
+
+4. DRAWING SHAPES
+   Lines:
+   - cv2.line(image, start_point, end_point, color, thickness)
+   - Example: cv2.line(img, (0,0), (200,200), (255,0,0), 3)
+   
+   Circles:
+   - cv2.circle(image, center, radius, color, thickness)
+   - thickness = -1 for filled circle
+   - Example: cv2.circle(img, (100,100), 50, (0,255,0), -1)
+   
+   Rectangles:
+   - cv2.rectangle(image, top_left, bottom_right, color, thickness)
+   
+   Note: Color format is (B, G, R) not RGB!
+
+5. ADDING TEXT ON IMAGES
+   - cv2.putText(image, text, position, font, scale, color, thickness)
+   - Fonts: cv2.FONT_HERSHEY_SIMPLEX (most common)
+   - position = bottom-left corner of text
+   - scale = font size multiplier
+   - Example: cv2.putText(img, "Hello", (50,50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2)
+
+IMPORTANT NOTES:
+- All these functions modify the image in-place or return modified copy
+- Always use image.copy() if you want to preserve original
+- Coordinates are (x, y) where x=column, y=row
+- Image indexing is [row, col] = [y, x] - Remember the difference!
